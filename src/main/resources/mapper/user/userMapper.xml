@@ -7,28 +7,49 @@
         <![CDATA[
         SELECT * FROM user;
         ]]>
-
     </select>
-    <insert id="userJoin" useGeneratedKeys="true" keyProperty="user_no">
+
+    <select id="findOneUserByUsername" parameterType="String" resultType="UserModel">
+        <![CDATA[
+        SELECT * FROM user where user_id=#{user_id};
+        ]]>
+    </select>
+
+    <select id="findOneAuthoritiesByUsername" parameterType="String" resultType="Authority">
+        <![CDATA[
+        SELECT ua.authority_name
+        FROM user AS u
+        JOIN user_authority AS ua
+        ON u.user_no = ua.user_no
+        WHERE u.user_id = #{user_id};
+        ]]>
+    </select>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="user_no" parameterType="UserModel">
         <![CDATA[
         INSERT INTO user(
             user_id,
-            user_pwd,
+            user_pw,
             user_name,
             user_email,
-            user_addr,
+            user_address,
             user_phone,
-            user_date
+            user_activated
         )VALUES(
             #{user_id},
-            #{user_pwd},
+            #{user_pw},
             #{user_name},
             #{user_email},
-            #{user_addr},
+            #{user_address},
             #{user_phone},
-            #{user_date}
+            #{user_activated}
             )
         ]]>
     </insert>
-
+    <insert id="authSave" parameterType="UserModel">
+        <![CDATA[
+            INSERT INTO user_authority(user_no, authority_name) VALUES (#{user_no}, 'ROLE_USER')
+        ]]>
+    </insert>
 </mapper>
