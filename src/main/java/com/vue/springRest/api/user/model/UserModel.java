@@ -33,8 +33,9 @@ public class UserModel {
 
     private String user_date;
 
-    @JsonIgnore
     private boolean user_activated;
+
+    private String auth;
 
     @Nullable
     private Set<Authority> authorities;

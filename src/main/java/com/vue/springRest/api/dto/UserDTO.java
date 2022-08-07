@@ -1,8 +1,6 @@
 package com.vue.springRest.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -29,5 +27,7 @@ public class UserDTO {
     private String user_address;
 
     private String user_phone;
+
+    private Boolean user_activated;
 
 }

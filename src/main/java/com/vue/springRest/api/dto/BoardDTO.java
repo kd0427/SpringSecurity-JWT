@@ -1,7 +1,6 @@
-package com.vue.springRest.api.board.model;
+package com.vue.springRest.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.vue.springRest.api.dto.CommentDTO;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
@@ -13,13 +12,13 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class BoardModel {
+public class BoardDTO {
+    @NotNull
+    private String board_title;
+    @NotNull
+    private String board_content;
 
     private Long board_no;
-
-    private String board_title;
-
-    private String board_content;
 
     private String board_writer;
 
@@ -29,5 +28,5 @@ public class BoardModel {
     private String board_date;
 
     @Nullable
-    private List<CommentDTO> CommentList;
+    private List<CommentDTO> commentList;
 }

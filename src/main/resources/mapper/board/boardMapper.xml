@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vue.springRest.api.board.mapper.BoardMapper">
+    <select id="boardList" resultType="BoardModel">
+        <![CDATA[
+            SELECT * FROM board ORDER BY board_no desc ;
+        ]]>
+    </select>
+    <select id="getBoard" parameterType="Long" resultType="BoardModel">
+        <![CDATA[
+            SELECT * FROM board where board_no = #{board_no}
+        ]]>
+    </select>
+    <insert id="boardWrite" parameterType="BoardModel">
+        <![CDATA[
+            INSERT INTO board(
+                board_title,
+                board_content,
+                user_no,
+                board_writer
+                )VALUES(
+                #{board_title},
+                #{board_content},
+                #{user_no},
+                #{board_writer}
+                       )
+        ]]>
+    </insert>
+    <update id="boardUpdate" parameterType="BoardModel">
+        <![CDATA[
+            UPDATE board SET
+                board_title=#{board_title},
+                board_content=#{board_content}
+            WHERE board_no = #{board_no}
+        ]]>
+    </update>
+    <delete id="boardDelete" parameterType="Long">
+        <![CDATA[
+            DELETE FROM board
+            WHERE board_no=#{board_no}
+        ]]>
+    </delete>
+
+    <insert id="commentWrite" parameterType="CommentModel" useGeneratedKeys="true" keyProperty="comment_no">
+        <![CDATA[
+            INSERT INTO comment(
+                user_id,
+                comment_content,
+                board_no
+            )VALUES (
+                #{user_id},
+                #{comment_content},
+                #{board_no}
+                    )
+        ]]>
+    </insert>
+
+    <update id="commentModify" parameterType="CommentModel">
+        <![CDATA[
+            UPDATE comment SET
+                   comment_content=#{comment_content}
+            WHERE comment_no=#{comment_no}
+        ]]>
+    </update>
+
+    <delete id="commentDelete" parameterType="Long">
+        <![CDATA[
+            DELETE FROM comment
+            WHERE comment_no=#{comment_no}
+        ]]>
+    </delete>
+
+    <select id="commentList" parameterType="Long" resultType="CommentModel">
+        <![CDATA[
+            SELECT * FROM comment WHERE board_no=#{board_no}
+        ]]>
+    </select>
+</mapper>

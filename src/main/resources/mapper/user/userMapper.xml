@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.vue.springRest.api.user.mapper.UserMapper">
-    <select id="userList" resultType="UserModel">
+    <select id="getAllUser" resultType="UserModel">
         <![CDATA[
         SELECT * FROM user;
         ]]>
@@ -52,4 +52,30 @@
             INSERT INTO user_authority(user_no, authority_name) VALUES (#{user_no}, 'ROLE_USER')
         ]]>
     </insert>
+
+    <update id="modifyUserInfo" parameterType="UserModel">
+        <![CDATA[
+            UPDATE user SET
+                user_pw=#{user_pw},
+                user_email=#{user_email},
+                user_address=#{user_address},
+                user_phone=#{user_phone}
+            WHERE
+                user_id=#{user_id}
+        ]]>
+    </update>
+
+    <select id="getUserId" parameterType="Long" resultType="String">
+        <![CDATA[
+            SELECT user_id FROM user WHERE user_no=#{user_no}
+        ]]>
+    </select>
+
+    <update id="userManagement" parameterType="UserModel">
+        <![CDATA[
+            UPDATE user SET
+                user_activated=#{user_activated}
+            WHERE user_id = #{user_id}
+        ]]>
+    </update>
 </mapper>
